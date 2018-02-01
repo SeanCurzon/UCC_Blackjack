@@ -1,0 +1,29 @@
+.center {
+  position: relative;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#blackjack {
+  font-family: 'Asset';
+  font-size: 40px;
+}
+
+#table {
+  background-color: green;
+}
+
+#login {
+  float: left;
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  margin: 10px auto;
+  border: 5px solid green;
+  border-style: double;
+  padding: 10px;
+  text-align: center;
+}
