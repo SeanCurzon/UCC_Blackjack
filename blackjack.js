@@ -9,7 +9,9 @@
 
 	var player1 = {
 	  card1x:565,
+	  x1Change:-4.75,
 	  card1y:20,
+	  y1Change:+5,
 	  card2x:580,
 	  card2y:20
 
@@ -72,13 +74,10 @@
 		var bettop = document.getElementById('betPlaced');
 		bettop.innerHTML = "Your Bet: "+betValue();
 
-		var paidtop = document.getElementById('paid');
-		paidtop.innerHTML = "Paid: "+(betValue() *2);
-
 		var wallettop = document.getElementById('wallet');
 
-		wallettop.innerHTML = "Wallet: "+(prev_wallet+betValue() *2);
-		prev_wallet += (betValue()*2);
+		wallettop.innerHTML = "Wallet: "+(prev_wallet - betValue());
+		prev_wallet -= (betValue());
 
 
 		//disable bet button until new game has started
@@ -123,17 +122,15 @@
   		// function to move cards each cad is moved and the image of the card before is cleared
   		// and the image is re drawn with new coordinates
   	
-    if (player1.card1y < 440) { //player 1 card 1
+   if (player1.card1y < 440) { //player 1 card 1
 		if(player1.card1y == 20){x.play();}
-		context.clearRect(0,0,800,750);
+		context.clearRect(0,0,1200,750);
 		table();
-			context.drawImage(imageObj, player1.card1x, player1.card1y, 60, 86);
+			context.drawImage(imageObj, player1.card1x, player1.card1y, 80, 129);
 		    player1.card1x -= 4.75;  
 		    player1.card1y += 5;
-		
+		}
 	
-	}
-
     if (player1.card1y >439) {
       if (player2.card1y < 440) { //player 2 card 1
       	if(player2.card1y == 20){x.play();}
@@ -155,6 +152,7 @@
         table();
         context.drawImage(imageObj, player1.card1x, player1.card1y, 80, 129);
         context.drawImage(imageObj, player2.card1x, player2.card1y, 80, 129);
+        context.drawImage(imageObj, player3.card1x, player3.card1y,80, 129);
         
         player3.card1x += 1.85;
         player3.card1y += 12;
@@ -249,12 +247,60 @@
 
   }
 
+
+if(player4.card2y == 455){endGame()}
 }
 
   interval_id=setInterval(movecards, 10);
 		}
 	
+	function endGame(){
+		var winner = false;
+		clearInterval(interval_id);
+		alert('all cards dealt');
 
+		if(winner){
+		var paidtop = document.getElementById('paid');
+		paidtop.innerHTML = "Paid: "+(betValue() *2);
+
+		var wallettop = document.getElementById('wallet');
+		wallettop.innerHTML = "Wallet: "+(prev_wallet + betValue()*2);
+		prev_wallet += (betValue()*2);
+
+	}else if (winner == "draw"){
+
+		var paidtop = document.getElementById('paid');
+		paidtop.innerHTML = "Paid: "+(betValue());
+
+		var wallettop = document.getElementById('wallet');
+
+		wallettop.innerHTML = "Wallet: "+(prev_wallet + betValue());
+		prev_wallet += (betValue());
+	}else{
+		var loser = document.createElement('AUDIO');
+		loser.src = 'graphics/loser.mp3';
+		loser.play();
+	}
+	playerChoices()
+	}
+
+	function playerChoices(){
+		// put in function to cycle through players
+
+		document.getElementById("hit").addEventListener("click",hit);
+		document.getElementById("stand").addEventListener("click",stand);
+	}
+
+	function stand(){
+		var noCard = document.createElement('AUDIO');
+		noCard.src = 'graphics/stand.mp3';
+		noCard.play();
+	}
+	function hit(){
+		var winnerWinner = document.createElement('AUDIO');
+		winnerWinner.src = 'graphics/winner.mp3'
+		winnerWinner.play();
+	}
 	function table(){
 
 		//function to draw table layout
@@ -336,12 +382,6 @@
 
 //DEALER BOX
 
-		
-		context.moveTo(600,0);
-		context.lineTo(600,750);
-	
-		context.stroke();
-
 		context.beginPath();
 		context.moveTo(445,53);
 		context.bezierCurveTo(450,200,750,200,760,53);
@@ -354,9 +394,8 @@
 	function newGame(){
 
 		//function to start new game and reset player variable
-		clearInterval(interval_id);
 		document.getElementById("bet").disabled=false;
-		var clearElem = document.getElementById("chip"+1);//player id in here
+		var clearElem = document.getElementById("chip"+4);//player id in here
 		clearElem.parentNode.removeChild(clearElem);
 
 		context.clearRect(0,0,1200,750);

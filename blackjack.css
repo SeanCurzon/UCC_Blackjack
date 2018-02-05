@@ -218,6 +218,18 @@ body{
 			left:7.85%;
 	
 }
+#hit{
+			position:relative;
+			;
+			left:7.85%;
+	
+}
+#stand{
+			position:relative;
+			;
+			left:7.85%;
+	
+}
 #b{
 		border: 2px solid #555555;
 		border-right-style:hidden;
@@ -317,6 +329,28 @@ header{
 }
 
 .button2:hover{
+	 background-color: #555555;
+		color: white;
+}
+
+.button3{
+	background-color: white;
+		color: black;
+		border: 2px solid #555555;
+}
+
+.button3:hover{
+	 background-color: #555555;
+		color: white;
+}
+
+.button4{
+	background-color: white;
+		color: black;
+		border: 2px solid #555555;
+}
+
+.button4:hover{
 	 background-color: #555555;
 		color: white;
 }
