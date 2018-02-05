@@ -34,7 +34,7 @@ body{
 		/*border-right:3px ridge #D2691E;*/
 		font-size: 18px; 
 		/*background-color: #D2691E; */
-		background-image: url('graphics/oak.jpg');
+		background-image: url("https://i.imgur.com/t0gdtcg.jpg" );
 }
 .canvas-container > #betPlaced{
 	position:relative;
@@ -53,7 +53,7 @@ body{
 		/*border-right:3px ridge #D2691E;*/
 		font-size: 18px; 
 		/*background-color: #D2691E; */
-		background-image: url('graphics/oak.jpg');
+		background-image: url("https://i.imgur.com/t0gdtcg.jpg" );
 }
 
 .canvas-container > #paid{
@@ -75,7 +75,7 @@ body{
 		font-size: 18px; 
 		
 		/*background-color: #D2691E; */
-		background-image: url('graphics/oak.jpg');
+		background-image: url("https://i.imgur.com/t0gdtcg.jpg" );
 }
 
 .canvas-container > #option{
@@ -95,7 +95,7 @@ body{
 		font-size: 16px; 
 		text-indent: 10px;
 		/*background-color: #D2691E; */
-		background-image: url('graphics/oak.jpg');
+		background-image: url("https://i.imgur.com/t0gdtcg.jpg" );
 }
 
 .canvas-container > #bottomBorder{
@@ -114,7 +114,7 @@ body{
 		font-size: 16px; 
 		text-indent: 10px;
 		/*background-color: #D2691E; */
-		background-image: url('graphics/oak.jpg');
+		background-image: url("https://i.imgur.com/t0gdtcg.jpg" );
 }
 #bottomBorder> span{
 	position:relative;
@@ -196,13 +196,13 @@ body{
 	height: 86px;
 	position: relative;
 
-	background-image:url(graphics/cardback.png);
+	background-image:url('https://imgur.com/wio79Yx');
 }
 
 #play { 
 			position: relative;
 			display: block;
-			background-image: url("graphics/table2.jpg");
+			background-image: url("https://i.imgur.com/1BybnMs.jpg" );
 			
 }
 #newGame{
