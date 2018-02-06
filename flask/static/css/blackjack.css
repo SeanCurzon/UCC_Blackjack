@@ -13,13 +13,13 @@ body{
 .canvas-container > canvas,
 
 .canvas-container > #money{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
 
 .canvas-container > #money{
-	position:absolute;
+	position:relative;
 		left:58%; 
 		top: 1.5%;
 		padding-right: 1.5em;
@@ -34,13 +34,13 @@ body{
 		background-image: url('graphics/oak.jpg');
 }
 .canvas-container > #money2{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
 
 .canvas-container > #money2{
-	position:absolute;
+	position:relative;
 		left:65.55%; 
 		top: 1.5%;
 		padding-right: 1.5em;
@@ -57,13 +57,14 @@ body{
 }
 
 .canvas-container > #money3{
-	position:absolute;
-		left:0;
+	position:relative;
+	left:0;
 		top:0;
+		
 }
 
 .canvas-container > #money3{
-	position:absolute;
+	position:relative;
 		left:72.5%; 
 		top: 1.5%;
 		padding-right: 4.85em;
@@ -78,13 +79,13 @@ body{
 }
 
 .canvas-container > #option{
-	position:absolute;
-		left:0;
+	position:relative;
+	left:0;
 		top:0;
 }
 
 .canvas-container > #option{
-	position:absolute;
+	position:relative;
 		left:18.5%; 
 		top: 1.5%;
 		padding-right: 11.25em;
@@ -98,17 +99,16 @@ body{
 }
 
 .canvas-container > #bottomBorder{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
 
 .canvas-container > #bottomBorder{
-	position:absolute;
-		left:18.55%; 
-		top: 94.25%;
-		padding-right: 28.55em;
-		padding-left: 27em;
+	position:relative;
+		width:63%;
+		left: 18.5%;
+		top: -38.85%;
 		border-top:3px ridge #D2691E;
 		font-size: 16px; 
 		text-indent: 10px;
@@ -116,89 +116,89 @@ body{
 		background-image: url('graphics/oak.jpg');
 }
 #bottomBorder > input{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
 
 #bottomBorder > input{
-	position:absolute;
+	position:relative;
 		left:1%;    /* places the slider */
 		top:30.55%;
 }
 #bottomBorder> span{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
 
 #bottomBorder > span{
-	position:absolute;
+	position:relative;
 		left:23%;   
 		top:30.55%;
 }
 #bottomBorder > #betValue{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
 
 #bottomBorder > #betValue{
-	position: absolute;
+	position: relative;
 		left: 31.25%;
 		top:27%;
 }*/
 .canvas-container > #chip1{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
 
 .canvas-container > #chip1{
-	position:absolute;
+	position:relative;
 		left:30.25%;    
 		top:43.25%;
 }
 
 .canvas-container > #chip2{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
 
 .canvas-container > #chip2{
-	position:absolute;
+	position:relative;
 		left:42.5%;    
 		top:43.25%;
 }
 
 .canvas-container > #chip3{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
 
 .canvas-container > #chip3{
-	position:absolute;
+	position:relative;
 		left:54.5%;    
 		top:43.25%;
 }
 
 .canvas-container > #chip4{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
 
 .canvas-container > #chip4{
-	position:absolute;
+	position:relative;
 		left:66.65%;    
 		top:43.25%;
 }
 
 
 .canvas-container > #myAnimation{
-	position:absolute;
+	position:relative;
 		left:0;
 		top:0;
 }
@@ -206,7 +206,7 @@ body{
 .canvas-container > #myAnimation{
 	width: 60px;
 	height: 86px;
-	position: absolute;
+	position: relative;
 
 	background-image:url(graphics/cardback.png);
 }
@@ -290,7 +290,7 @@ li a:hover:not(.active) {
 }
 
 .active {
-		background-color: #A9A9A9;
+		background-color: #000000;
 }
 
 header{
