@@ -1,0 +1,270 @@
+body{background: #A9A9A9; }
+/* the following block of code is to alter the hierarchy of elements so that all elements are contained in the canvas container 
+	can be positioned relative to each other*/
+.canvas-container{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	border:12px ridge #D2691E;
+	height: 750px;
+	width:1200px;}
+.canvas-container > canvas,
+/* css for the wallet div in the top right corner*/
+.canvas-container > #wallet{
+	position:relative;
+	left:0;
+	top:0;}
+.canvas-container > #wallet{
+	position:relative;
+	left:62.5%; 
+	top: -100%;	
+	width:150px;
+	padding-top:.8em;
+	padding-bottom: .8em;
+	border-bottom:3px ridge #D2691E;
+	border-left:3px ridge #D2691E;		
+	font-size: 18px; 
+	background-image: url("graphics/oak.jpg" );}
+/* css for the bet placed div in the top right corner*/
+.canvas-container > #betPlaced{
+	position:relative;
+	left:0;
+	top:0;}
+.canvas-container > #betPlaced{
+	position:relative;
+	left:75.25%; 
+	top: -107.15%;
+	width:150px;
+	padding-top:.8em;
+	padding-bottom: .8em;
+	border-bottom:3px ridge #D2691E;
+	font-size: 18px; 
+	background-image: url("graphics/oak.jpg");}
+/* css for the paid div in the top right corner*/
+.canvas-container > #paid{
+	position:relative;
+	left:0;
+	top:0;		}
+.canvas-container > #paid{
+	position:relative;
+	left:87.75%; 
+	top: -114.35%;
+	width:147px;
+	padding-top:.8em;
+	padding-bottom: .8em;
+	border-bottom:3px ridge #D2691E;
+	font-size: 18px; 
+	background-image: url("graphics/oak.jpg");}
+/* css for the option div in the top left corner --- this div is to allow us to easily place any other info on screen*/
+.canvas-container > #option{
+	position:relative;
+	left:0;
+	top:0;}
+.canvas-container > #option{
+	position:relative;
+	width:450px;
+	height:50px;
+	top: -121.5%;
+	border-bottom:3px ridge #D2691E;
+	border-right:3px ridge #D2691E;
+	font-size: 16px; 
+	text-indent: 10px;
+	background-image: url("graphics/oak.jpg" );}
+/* css for the bottom border div that contains the main buttons and sliders for gameplay*/
+.canvas-container > #bottomBorder{
+	position:relative;
+	left:0;
+	top:0;}
+.canvas-container > #bottomBorder{
+	position:relative;
+	width:1200px;
+	height:50px;
+	top: -35.24%;
+	border-top:3px ridge #D2691E;
+	font-size: 16px; 
+	text-indent: 10px;
+	background-image: url("graphics/oak.jpg" );}
+/* css for the span tag in the bottom div which displays the value of the slider*/
+#bottomBorder> span{
+	position:relative;
+	left:0;
+	top:0;}
+#bottomBorder > span{position:relative;}
+#bottomBorder > #betValue{
+	position:relative;
+	left:0;
+	top:0;}
+#bottomBorder > #betValue{position: relative;}
+/* css for positioning player1 chip*/
+.canvas-container > #chip1{
+	position:relative;
+	left:0;
+	top:0;}
+.canvas-container > #chip1{
+	position:relative;
+	top:-93.75%;
+	left:18.75%;}
+/* css for positioning player2 chip*/
+.canvas-container > #chip2{
+	position:relative;
+	left:0;
+	top:0;}
+.canvas-container > #chip2{
+	position:relative;
+	left:38%;    
+	top:-93.75%;}
+/* css for positioning player3 chip*/
+.canvas-container > #chip3{
+	position:relative;
+	left:0;
+	top:0;}
+.canvas-container > #chip3{
+	position:relative;
+	left:57.25%;    
+	top:-93.75%;}
+/* css for positioning player4 chip*/
+.canvas-container > #chip4{
+	position:relative;
+	left:0;
+	top:0;}
+.canvas-container > #chip4{
+	position:relative;
+	left:76.65%;    
+	top:-93.75%;}
+/*css for the canvas*/
+#play { 
+	position: relative;
+	display: block;
+	background-image: url("graphics/table2.jpg" );}
+/* css for the new game button*/
+#newGame{
+	position:relative; 
+	left:7%;			}
+/* css for the bet button*/
+#bet{
+	position:relative;
+	left:7.85%;}
+/* css for the hit button chip*/
+#hit{
+	position:relative;
+	left:7.85%;}
+/* css for the stand button*/
+#stand{
+	position:relative;
+	left:7.85%;}
+/* css for the label that displays the slider value*/
+#b{
+	border: 2px solid #555555;
+	border-right-style:hidden;
+	background:white;
+	color:#000000;}
+#betValue{
+	border: 2px solid #555555;
+	border-left-style:hidden;
+	background:white;
+	color:#000000;}
+/* css to style the text on the site*/
+h1{
+	text-align: center;
+	color:#800000;}
+h3 {
+	text-align: center;
+	color: #800000;	}
+p {
+	text-align: center;
+	color:#FFF5EE;}
+/*css to display the menu at the top of the site*/
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: #000000 /* Standard syntax (must be last) */}
+li {float: left;}
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;}
+li a:hover:not(.active) {background-color:  #000000;}
+.active {background-color: #000000;}
+header{	font-style:italic;}
+/*css to style the buttons used*/
+.button {
+	border: .5px solid #A9A9A9 ;
+	padding: 8px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	background-color: #A9A9A9;
+	color: black;}
+.button1{
+	background-color: white;
+	color: black;
+	padding-left:3em;
+	padding-right:3em;
+	border: 2px solid #555555;}
+.button1:hover{
+	background-color: #555555;
+	color: white;}
+.button2{
+	background-color: white;
+	color: black;
+	border: 2px solid #555555;}
+.button2:hover{
+	background-color: #555555;
+	color: white;}
+.button3{
+	background-color: white;
+	color: black;
+	border: 2px solid #555555;}
+.button3:hover{
+	background-color: #555555;
+	color: white;}
+.button4{
+	background-color: white;
+	color: black;
+	border: 2px solid #555555;}
+.button4:hover{
+	background-color: #555555;
+	color: white;}
+/*styling the slider*/
+.slider {
+    -webkit-appearance: none;
+    width: 20%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;}
+.slider:hover { opacity: 1;}
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #D2691E;
+    cursor: pointer;}
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #D2691E;
+    cursor: pointer;}
+/*style the chip used for betting*/
+.chip {
+	display: inline-block;
+	padding: 0 20px;
+	height: 40px;
+	font-size: 14px;
+	color:white;
+	line-height: 40px;
+	border-radius: 20px;
+	background-color: black;}
