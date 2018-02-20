@@ -1,0 +1,382 @@
+body{
+	background: #A9A9A9; 
+	/*background-image:url("graphics/background1.png");
+	background-repeat: no-repeat;*/
+
+	
+}
+.canvas-container{
+	position: relative;
+	height: 750px;
+}
+
+.canvas-container > canvas,
+
+.canvas-container > #money{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+.canvas-container > #money{
+	position:relative;
+		left:58%; 
+		top: 1.5%;
+		padding-right: 1.5em;
+		
+		padding-top: .8em;
+		padding-bottom: .8em;
+		border-bottom:3px ridge #D2691E;
+		border-left:3px ridge #D2691E;
+		/*border-right:3px ridge #D2691E;*/
+		font-size: 18px; 
+		/*background-color: #D2691E; */
+		background-image: url('graphics/oak.jpg');
+}
+.canvas-container > #money2{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+.canvas-container > #money2{
+	position:relative;
+		left:65.55%; 
+		top: 1.5%;
+		padding-right: 1.5em;
+
+		padding-top: .8em;
+		padding-bottom: .8em;
+		border-bottom:3px ridge #D2691E;
+		
+		/*border-right:3px ridge #D2691E;*/
+		font-size: 18px; 
+		
+		/*background-color: #D2691E; */
+		background-image: url('graphics/oak.jpg');
+}
+
+.canvas-container > #money3{
+	position:relative;
+	left:0;
+		top:0;
+		
+}
+
+.canvas-container > #money3{
+	position:relative;
+		left:72.5%; 
+		top: 1.5%;
+		padding-right: 4.85em;
+		padding-top: .8em;
+		padding-bottom: .8em;
+		border-bottom:3px ridge #D2691E;
+		/*border-right:3px ridge #D2691E;*/
+		font-size: 18px; 
+		
+		/*background-color: #D2691E; */
+		background-image: url('graphics/oak.jpg');
+}
+
+.canvas-container > #option{
+	position:relative;
+	left:0;
+		top:0;
+}
+
+.canvas-container > #option{
+	position:relative;
+		left:18.5%; 
+		top: 1.5%;
+		padding-right: 11.25em;
+		padding-left: 10em;
+		border-bottom:3px ridge #D2691E;
+		border-right:3px ridge #D2691E;
+		font-size: 16px; 
+		text-indent: 10px;
+		/*background-color: #D2691E; */
+		background-image: url('graphics/oak.jpg');
+}
+
+.canvas-container > #bottomBorder{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+.canvas-container > #bottomBorder{
+	position:relative;
+		width:63%;
+		left: 18.5%;
+		top: -38.85%;
+		border-top:3px ridge #D2691E;
+		font-size: 16px; 
+		text-indent: 10px;
+		/*background-color: #D2691E; */
+		background-image: url('graphics/oak.jpg');
+}
+#bottomBorder > input{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+#bottomBorder > input{
+	position:relative;
+		left:1%;    /* places the slider */
+		top:30.55%;
+}
+#bottomBorder> span{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+#bottomBorder > span{
+	position:relative;
+		left:23%;   
+		top:30.55%;
+}
+#bottomBorder > #betValue{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+#bottomBorder > #betValue{
+	position: relative;
+		left: 31.25%;
+		top:27%;
+}*/
+.canvas-container > #chip1{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+.canvas-container > #chip1{
+	position:relative;
+		left:30.25%;    
+		top:43.25%;
+}
+
+.canvas-container > #chip2{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+.canvas-container > #chip2{
+	position:relative;
+		left:42.5%;    
+		top:43.25%;
+}
+
+.canvas-container > #chip3{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+.canvas-container > #chip3{
+	position:relative;
+		left:54.5%;    
+		top:43.25%;
+}
+
+.canvas-container > #chip4{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+.canvas-container > #chip4{
+	position:relative;
+		left:66.65%;    
+		top:43.25%;
+}
+
+
+.canvas-container > #myAnimation{
+	position:relative;
+		left:0;
+		top:0;
+}
+
+.canvas-container > #myAnimation{
+	width: 60px;
+	height: 86px;
+	position: relative;
+
+	background-image:url(graphics/cardback.png);
+}
+
+#play { 
+			position: relative;
+			padding-left: 0;
+			padding-right: 0;
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+			background-image: url("graphics/table2.jpg");
+			border:12px ridge #D2691E;
+}
+#newGame{
+			position:relative; 
+			left:5.5%;
+			top:-8.77%;
+			
+			
+	}
+#bet{
+			position:relative;
+			top:-8.77%;
+			left:8.25%;
+	
+}
+#b{
+		border: 2px solid #555555;
+		border-right-style:hidden;
+		background:white;
+		color:#000000;
+}
+#betSlider{color:#FFFFFF;}
+
+h1{
+	text-align: center;
+	color:#800000;
+ 
+}
+h3 {
+	text-align: center;
+	color: #800000;
+	
+}
+
+p {
+	text-align: center;
+	color:#FFF5EE;
+	
+}
+#betValue{
+
+		border: 2px solid #555555;
+		border-left-style:hidden;
+		background:white;
+		color:#000000;
+}
+ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		background: #000000 /* Standard syntax (must be last) */
+}
+
+li {
+		float: left;
+}
+
+li a {
+		display: block;
+		color: white;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+}
+
+li a:hover:not(.active) {
+		background-color:  #000000;
+}
+
+.active {
+		background-color: #000000;
+}
+
+header{
+	
+	font-style:italic;
+}
+
+
+
+.button {
+		border: .5px solid #A9A9A9 ;
+		padding: 8px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+		background-color: #A9A9A9;
+		color: black;
+
+}
+.button1{
+	background-color: white;
+		color: black;
+		padding-left:3em;
+		padding-right:3em;
+		border: 2px solid #555555;
+}
+
+.button1:hover{
+	 background-color: #555555;
+		color: white;
+}
+
+.button2{
+	background-color: white;
+		color: black;
+		border: 2px solid #555555;
+}
+
+.button2:hover{
+	 background-color: #555555;
+		color: white;
+}
+.slider {
+    -webkit-appearance: none;
+    width: 20%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #D2691E;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #D2691E;
+    cursor: pointer;
+}
+
+.chip {
+		display: inline-block;
+		padding: 0 20px;
+		height: 40px;
+		font-size: 14px;
+		color:white;
+		line-height: 40px;
+		border-radius: 20px;
+		background-color: black;
+}
