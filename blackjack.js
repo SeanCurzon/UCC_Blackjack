@@ -4,7 +4,6 @@ var width;
 var height;
 var interval_id;
 var prev_wallet = 1000;
-
 /* starting coordinates for player 1 cards*/
 var player1 = {
 	card1x:565,
@@ -12,7 +11,6 @@ var player1 = {
 	card2x:580,
 	card2y:20
 };
-
 /* starting coordinates for player 2 cards*/
 var player2 = {
 	card1x:565,
@@ -20,7 +18,6 @@ var player2 = {
 	card2x:580,
 	card2y:20
 };
-
 /* starting coordinates for player 3 cards*/
 var player3 = {
 	card1x:565,
@@ -28,7 +25,6 @@ var player3 = {
 	card2x:580,
 	card2y:20
 };
-
 /* starting coordinates for player 4 cards*/
 var player4 = {
 	card1x:565,
@@ -36,45 +32,49 @@ var player4 = {
 	card2x:580,
 	card2y:20
 };
-
 document.addEventListener('DOMContentLoaded', init, false);
-
 function init() {  
-
 	canvas = document.querySelector('canvas');
 	context = canvas.getContext('2d');
 	table();
-
 	//event listeners to react to button presses
 	document.getElementById("myBet").addEventListener("click",betValue);		
 	document.getElementById("bet").addEventListener("click",placeBet);
 	document.getElementById("newGame").addEventListener("click",newGame);
 }
-
 function betValue(){
-
 	var slider = document.getElementById("myBet");
 	var output = document.getElementById("betValue");
 	// Display the default slider value
 	output.innerHTML = slider.value; 
-
 	// Update the current slider value (each time you drag the slider handle)
 	slider.oninput = function() {
 		output.innerHTML = this.value
-			}
-		return(output.innerHTML);
 	}
-
+	return(output.innerHTML);
+}
 function placeBet(){
-
 	//allow player to make a bet 
-
 	//link betting code form python here
+	var myData = betValue();
+	$.ajax({
+		url: "/betting",
+		data: {"myData":myData},
+		type: 'POST',
+		success: function(response){
+			alert(response);
+		},
+		error: function(error) {
+			alert(error);
+		}
+	});
 
+	//v2
+	//var myData = betValue();
+	//$.post("/betting",{"myData": myData});
 	//update the bet field at top of screen
 	var bettop = document.getElementById('betPlaced');
 	bettop.innerHTML = "Your Bet: "+betValue();
-
 	// update wallet field at top of the screen
 	var wallettop = document.getElementById('wallet');
 	wallettop.innerHTML = "Wallet: "+(prev_wallet - betValue());
@@ -90,11 +90,11 @@ function placeBet(){
 	chip.appendChild(bet);
 	document.getElementById("canvas-container").appendChild(chip);
 	var chipS = document.createElement("AUDIO");
-	chipS.src = "graphics/chipsound.mp3"; 
+	chipS.src = "static/graphics/sounds/chipsound.mp3"; 
 	chipS.play()		
 	// intialise sound of card being dealt
 	var x = document.createElement("AUDIO");
-	x.src = "graphics/dealCard1.wav";
+	x.src = "static/graphics/sounds/dealcard1.wav";
 	//intailise image object
 	var imageObj = new Image();
  	imageObj.onload = function() {
@@ -103,15 +103,12 @@ function placeBet(){
 	function deal() {
 	    context.drawImage(imageObj, 560, 20, 80, 130); //dealer card
 	};
-	imageObj.src = "https://i.imgur.com/wio79Yx.png";
-
+	imageObj.src = "static/graphics/cardback.png";
 	function movecards(){
-	  		
 	  	// function to move cards each cad is moved canvas cleared
 	  	// and the image is re drawn with new coordinates
 	  	// add line to each if statement that takes the card value from python code
 	  	// and draws according image
-	  	
 	   if (player1.card1y < 440) { //player 1 card 1
 			if(player1.card1y == 20){
 				x.play();
@@ -248,8 +245,7 @@ function placeBet(){
 		}
 	}
 	interval_id=setInterval(movecards, 10);
-}
-	
+}	
 function endGame(){
 	// called once all cards are dealt
 	// cycle through players if any balck jacks update wallet accordingly set winner to true
@@ -262,45 +258,36 @@ function endGame(){
 	if(winner){
 		var paidtop = document.getElementById('paid');
 		paidtop.innerHTML = "Paid: "+(betValue() *2);
-
 		var wallettop = document.getElementById('wallet');
 		wallettop.innerHTML = "Wallet: "+(prev_wallet + betValue()*2);
 		prev_wallet += (betValue()*2);
-
 	}else if (winner == "draw"){
-
 		var paidtop = document.getElementById('paid');
 		paidtop.innerHTML = "Paid: "+(betValue());
-
 		var wallettop = document.getElementById('wallet');
 		wallettop.innerHTML = "Wallet: "+(prev_wallet + betValue());
 		prev_wallet += (betValue());
 
 	}else{
-
 		var loser = document.createElement('AUDIO');
-		loser.src = 'graphics/loser.mp3';
+		loser.src = 'static/graphics/sounds/loser.mp3';
 		loser.play();
 	}
-
 	playerChoices()
 }
-
 function playerChoices(){
 	// put in function to cycle through players nby getting player list starting at player 1
 	//and end at player4
 	//let player choose hit or stand
 	document.getElementById("hit").addEventListener("click",hit);
 	document.getElementById("stand").addEventListener("click",stand);
-	}
-
+}
 function stand(){
 	// tell dealer not to give any more cards to the current player
 	var noCard = document.createElement('AUDIO');
-	noCard.src = 'graphics/stand.mp3';
+	noCard.src = 'static/graphics/sounds/stand.mp3';
 	noCard.play();
 }
-
 function hit(){
 /*
 	//add code to get value of card from python code and calculate new value
@@ -310,7 +297,6 @@ function hit(){
 	winnerWinner.src = 'graphics/winner.mp3'
 	winnerWinner.play();*/
 }
-
 function table(){
 
 	//function to draw table layout
@@ -319,7 +305,7 @@ function table(){
 		context.drawImage(imageObj,560,0,80,129);
 	};
 		
-	imageObj.src = "https://i.imgur.com/wio79Yx.png" ;
+	imageObj.src = "static/graphics/cardback.png" ;
 	//top line of player field			
 	context.strokeStyle = '#A9A9A9';
 	context.lineWidth=2;
@@ -377,7 +363,6 @@ function table(){
 	context.lineWidth = 15;
 	context.stroke();
 }
-	
 function newGame(){
 
 	//function to start new game and reset player variableS
