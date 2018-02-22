@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request,session,g,redirect,url_for,abort,flash,json
 import random
 from dealer import Dealer
 from deck import Deck
@@ -8,29 +8,41 @@ from hand import Hand
 
 
 app = Flask(__name__)
-"""def main():
-
-    dealer = Dealer()
-    player1 = Player(dealer)
-    player2 = Player(dealer)
-    player3 = Player(dealer)
-    player4 = Player(dealer)
-
-    playerlst = [player1,player2,player3,player4]
-
-    for item in playerlst :
-        item.startingHand(dealer)
-
-    player4.compareHandAgainstDealer(dealer, player4._mainlst)"""
+playerlst = []
+dealerCard=""
 @app.route('/')
-#load gui
 def blackjack():
+	#player4.compareHandAgainstDealer(dealer, player4._mainlst)
 	return render_template('blackjack.html')
 
-@app.route('/betting',methods = ['POST'])
+@app.route('/newGame')
+def newGame():
+	dealer = Dealer()
+	global dealerCard
+	dealerCard = str(dealer._handlst[0])
+	player1 = Player(dealer)
+	player2 = Player(dealer)
+	player3 = Player(dealer)
+	player4 = Player(dealer)
+	global playerlst
+	playerlst = [player1,player2,player3,player4]
+	return('hi')
+
+@app.route('/cardValue')
+def cardValue():
+	global dealerCard
+	dealerCard = json.dumps(dealerCard)
+	return(dealerCard)
+
+
+@app.route("/betting",methods = ['POST'])
 #apply players bet incomplete
 def bet():
-	return(request.form['myData'])
+	playerNum = request.form['player']
+	print(playerNum)
+	return ('Player: '+playerNum + ' bets:'+ request.form['myData'])
+
+	#return(request.form['myData'])
 
 if __name__ == '__main__':
-	main()
+	app.run(debug=True)
