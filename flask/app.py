@@ -29,9 +29,12 @@ class User(UserMixin, db.Model):
     __tablename__ = "users"
     user_id = db.Column('ID',db.Integer , primary_key=True)
     username = db.Column('username', db.String(255))
-    password = db.Column('password' , db.String(255))
+    password = db.Column('password', db.String(255))
+    email = db.Column('email', db.String(255))
+    balance = db.Column('balance', db.Integer)
 
-    def __init__(self, username ,password, email, balance):
+    def __init__(self, user_id, username ,password, email, balance):
+        self.user_id = user_id
         self.username = username
         self.password = password
         self.email = email
@@ -73,24 +76,21 @@ def index():
 @app.route('/login', methods=['GET', 'POST']) #login page
 def login():
     form = LoginForm()
-
+    if request.method == 'GET':
+        return render_template('login.html', form=form)
     username = form.username.data
     password = form.password.data
-
-    if form.validate_on_submit(): #when form is validated and subitted
-        if cursor.execute("SELECT * FROM users WHERE username = '%s' AND password = '%s';" % (username,password)): #checks if there is a 'username' with passowrd 'password'
-            return(str(cursor.execute("SELECT username FROM users WHERE username = '%s' AND password = '%s';" % (username,password))))
-            row = cursor.fetchone()
-            email = row(email)
-            balance = row(balance)
-            user = User(username, password, email, balance)
-            login_user(user)
-            return render_template('dashboard.html', form=form)
-        return ('invalid username or password')
-    return render_template('login.html', form=form)
+    registered_user = User.query.filter_by(username=username,password=password).first()
+    if registered_user is None:
+        flash('Username or Password is invalid' , 'error')
+        return redirect(url_for('login'))
+    login_user(registered_user)
+    flash('Logged in successfully')
+    return redirect(request.args.get('next') or url_for('dashboard'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def signup():
+
     form = RegisterForm()
 
     username = form.username.data #collects data from registration form
@@ -101,7 +101,7 @@ def signup():
     if form.validate_on_submit():
         if request.method == 'GET':
             return render_template('register.html')
-        user = User(0, request.form['username'] , request.form['password'],request.form['email'], 1000)
+        user = User(0, username , password, email, balance)
         db.session.add(user)
         db.session.commit()
         flash('User successfully registered')
