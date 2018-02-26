@@ -108,14 +108,13 @@ function placeBet(){
 	chip.appendChild(bet);
 	document.getElementById("canvas-container").appendChild(chip);
 	var chipS = document.createElement("AUDIO");
-	chipS.src = "static/graphics/sounds/chipsound.mp3"; 
-	chipS.play()	
+	//chipS.src = "static/graphics/sounds/chipsound.mp3"; 
+	//chipS.play()	
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	// intialise sound of card being dealt
 	var x = document.createElement("AUDIO");
-	x.src = "static/graphics/sounds/dealcard1.wav";
+	//x.src = "static/graphics/sounds/dealcard1.wav";
 	//intailise image object
 	var imageObj = new Image();
  	imageObj.onload = function() {};
@@ -125,11 +124,11 @@ function placeBet(){
 	  	// function to move cards each cad is moved canvas cleared
 	  	// and the image is re drawn with new coordinates
 	  	// add line to each if statement that takes the card value from python code
-	  	// and draws according image
+  	  	// and draws according image
 	  imageObj.src = "static/graphics/cardback.png";
 	   if (player1.card1y < 440) { //player 1 card 1
 			if(player1.card1y == 20){
-				x.play();
+				//x.play();
 			}
 				context.clearRect(0,0,1200,750);
 				table();
@@ -141,7 +140,7 @@ function placeBet(){
 	    if (player1.card1y >439) {
 	      	if (player2.card1y < 440) { //player 2 card 1
 		      	if(player2.card1y == 20){
-		      		x.play();
+		      		//x.play();
 		      	}
 		      	context.clearRect(0,0,1200,750);
 		        table();
@@ -155,7 +154,7 @@ function placeBet(){
 	    if (player2.card1y >439) {
 	      	if (player3.card1y < 440) { //player 3 card 1
 	      		if(player3.card1y == 20){
-	      			x.play();
+	      			//x.play();
 	      		}
 		        context.clearRect(0,0,1200,750);
 		        table();
@@ -170,7 +169,7 @@ function placeBet(){
 	    if (player3.card1y >439) {
 	      	if (player4.card1y < 440) { //player 4 card 1
 	      		if(player4.card1y == 20){
-	      			x.play();
+	      			//x.play();
 	      		}
 		      	context.clearRect(0,0,1200,750);
 		      	table();
@@ -186,7 +185,7 @@ function placeBet(){
 	    if (player4.card1y >439) {
 	      	if (player1.card2y < 440) { //player 1 card 2
 		        if(player1.card2y == 20){
-		        	x.play();
+		        	//x.play();
 		        }
 				context.clearRect(0,0,1200,750);
 		        table();
@@ -203,7 +202,7 @@ function placeBet(){
 	    if (player1.card2y >439) {
 	      	if (player2.card2y < 440) { //player 2 card 2
 	      		if(player2.card2y == 20){
-	      			x.play();
+	      			//x.play();
 	      		}
 		        context.clearRect(0,0,1200,750);
 		        table();
@@ -221,7 +220,7 @@ function placeBet(){
 	    if (player2.card2y >439) {
 	      	if (player3.card2y < 440) { //player 3 card 2
 	      		if(player3.card2y == 20){
-	      			x.play();
+	      			//x.play();
 	      		}
 		        context.clearRect(0,0,1200,750);
 		        table();
@@ -240,7 +239,7 @@ function placeBet(){
 	    if (player3.card2y >439) {
 	      	if (player4.card2y < 450) { //player 4 card 2
 	      		if(player4.card2y == 20){//play dealing sound
-	      			x.play();
+	      			//x.play();
 	      		}
 		        context.clearRect(0,0,1200,750);
 		        table();
@@ -259,7 +258,23 @@ function placeBet(){
 
 		// check if final card has been dealt to player 4
 		if(player4.card2y == 455){
-			endGame()
+			/*imageObj.src= "static/graphics/deck/3ofHearts.png";
+		    context.drawImage(imageObj, player1.card1x, player1.card1y, 80, 129);
+		    imageObj.src= "static/graphics/deck/3ofHearts.png";
+		    context.drawImage(imageObj, player2.card1x, player2.card1y, 80, 129);
+		    imageObj.src= "static/graphics/deck/3ofHearts.png";
+	        context.drawImage(imageObj, player3.card1x, player3.card1y, 80, 129);
+	        imageObj.src= "static/graphics/deck/3ofHearts.png";
+	        context.drawImage(imageObj, player1.card2x, player1.card2y, 80, 129);
+	        imageObj.src= "static/graphics/deck/3ofHearts.png";	        
+	        context.drawImage(imageObj, player2.card2x, player2.card2y, 80, 129);
+	        imageObj.src= "static/graphics/deck/8ofHearts.png";
+	        context.drawImage(imageObj, player3.card2x, player3.card2y, 80, 129);
+	       /*	imageObj.src= "static/graphics/deck/3ofClubs.png";
+	        context.drawImage(imageObj, player4.card1x, player4.card1y, 80, 129);
+	        imageObj.src= "static/graphics/deck/3ofClubs.png";
+	        context.drawImage(imageObj, player4.card2x-10.45, player4.card2y=15, 80, 129);*/
+			choicePhase()
 		}
 	}
 	interval_id=setInterval(movecards, 10);
@@ -274,10 +289,10 @@ function makeChip(playerId,betVal){
 	chip.appendChild(bet);
 	document.getElementById("canvas-container").appendChild(chip);
 	var chipS = document.createElement("AUDIO");
-	chipS.src = "static/graphics/sounds/chipsound.mp3"; 
-	chipS.play()
+	//chipS.src = "static/graphics/sounds/chipsound.mp3"; 
+	//chipS.play()
 }
-function endGame(){
+function choicePhase(){
 
 
 	var imageObj = new Image();
@@ -285,21 +300,62 @@ function endGame(){
     	deal();
   	};
 	function deal() {
-	    context.drawImage(imageObj, 560, 0, 80, 130); //dealer card
+	    context.drawImage(imageObj, 560, 0, 80, 129); //dealer card
+	   
 	};
 	console.log('here');
 	$.ajax({
 			url: "/cardValue",
 			type: 'GET',
-			timeout: 5000,
+			
 			success: function(response){
 				
 				dealer = JSON.parse(response);
-				alert(dealer);
+				alert('dealers first card is: '+dealer);
 				imageObj.src = "static/graphics/deck/"+dealer+".png";
 				//return dealer
 			}
 		});
+
+var imageObj2 = new Image();
+ 	imageObj2.onload = function() {
+    	deal2();
+  	};
+	function deal2() {
+		context.drawImage(imageObj2, player4.card1x, player4.card1y, 80, 129);
+	};
+
+	$.ajax({
+			url: "/playerCardValue1",
+			type: 'GET',
+			success: function(response){
+				
+				p1 = JSON.parse(response);
+				alert("players first card is: "+p1);
+				console.log(p1);
+				imageObj2.src = "static/graphics/deck/"+p1+".png";
+				//return dealer
+			}
+		});
+	var imageObj3 = new Image();
+ 	imageObj3.onload = function() {
+    	deal3();
+  	};
+	function deal3() {
+		    context.drawImage(imageObj3, player4.card2x-10.45, player4.card2y-15, 80, 129);
+	};
+	$.ajax({
+			url: "/playerCardValue2",
+			type: 'GET',
+			success: function(response){
+				p2 = JSON.parse(response);
+				alert('players Second card is: '+p2);
+				console.log(p2);
+				imageObj3.src = "static/graphics/deck/"+p2+".png";
+				//return dealer
+			}
+		});
+
 	// called once all cards are dealt
 	// cycle through players if any balck jacks update wallet accordingly set winner to true
 	// ask players to make a choice playerChoices() if stand move on to next player
@@ -308,6 +364,7 @@ function endGame(){
 	// run compare hand from python =code and update each players wallet accordingly
 	var winner = false;
 	clearInterval(interval_id);
+	/*
 	if(winner){
 		var paidtop = document.getElementById('paid');
 		paidtop.innerHTML = "Paid: "+(betValue() *2);
@@ -323,23 +380,56 @@ function endGame(){
 
 	}else{
 		var loser = document.createElement('AUDIO');
-		loser.src = 'static/graphics/sounds/loser.mp3';
-		loser.play();
-	}
+		l//oser.src = 'static/graphics/sounds/loser.mp3';
+		//loser.play();
+	}*/
 	playerChoices()
+}
+function getHand(){
+	var choice = $.ajax({
+			url: "/handValue",
+			type: 'GET',
+			success: function(response){
+				var handValue= JSON.parse(response);
+				alert('players hand is:  '+handValue);
+				var choice = prompt("Would you like to hit or stay ?");
+				 if (choice == "hit" ){ 
+				 	playerChoices();
+				 	getHand();
+				 }else{
+				 	playerChoices();
+				 }
+			}
+		});
+
 }
 function playerChoices(){
 	// put in function to cycle through players nby getting player list starting at player 1
 	//and end at player4
+	//alert(hit);
 	//let player choose hit or stand
 	document.getElementById("hit").addEventListener("click",hit);
 	document.getElementById("stand").addEventListener("click",stand);
+
 }
 function stand(){
 	// tell dealer not to give any more cards to the current player
 	var noCard = document.createElement('AUDIO');
-	noCard.src = 'static/graphics/sounds/stand.mp3';
-	noCard.play();
+	//noCard.src = 'static/graphics/sounds/stand.mp3';
+	//noCard.play();
+
+	//get dealers total
+	$.ajax({
+			url: "/dealerValue",
+			type: 'GET',
+			success: function(response){
+				var dealerValue= JSON.parse(response);
+				alert('dealers total is:  '+dealerValue);
+				endgame();
+			}
+		});
+
+
 }
 function hit(){
 /*
@@ -349,6 +439,41 @@ function hit(){
 	var winnerWinner = document.createElement('AUDIO');
 	winnerWinner.src = 'graphics/winner.mp3'
 	winnerWinner.play();*/
+}
+
+function endgame(){
+
+	$.ajax({
+			url: "/getWinner",
+			type: 'GET',
+			success: function(response){
+				var winner= response;
+				alert(winner);
+
+
+				if(winner[0]=="p"){
+					var paidtop = document.getElementById('paid');
+					paidtop.innerHTML = "Paid: "+(betValue() *2);
+					var wallettop = document.getElementById('wallet');
+					wallettop.innerHTML = "Wallet: "+(prev_wallet + betValue()*2);
+					prev_wallet += (betValue()*2);
+				}else if (winner[1] == "r"){
+					var paidtop = document.getElementById('paid');
+					paidtop.innerHTML = "Paid: "+(betValue());
+					var wallettop = document.getElementById('wallet');
+					wallettop.innerHTML = "Wallet: "+(prev_wallet + betValue());
+					prev_wallet += (betValue());
+
+				}else{
+					var loser = document.createElement('AUDIO');
+					//loser.src = 'static/graphics/sounds/loser.mp3';
+					//loser.play();
+				}
+				newGame();
+			}
+		});
+
+
 }
 function table(){
 
@@ -465,20 +590,4 @@ function newGame(){
 	  	card2x:580,
 	  	card2y:20
 	};	
-}
-
-function getCard(){
-	var dealerCard = $.ajax({
-			url: "/cardValue",
-			type: 'GET',
-			success: function(response){
-				
-				dealer = JSON.parse(response);
-				alert(dealer);
-				return dealer
-			},
-			error: function(error) {
-				alert(error);
-			}
-		});
 }
