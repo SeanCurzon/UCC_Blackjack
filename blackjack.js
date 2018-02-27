@@ -89,13 +89,7 @@ function placeBet(){
 
 
 	//get player id and create chip for that player
-	//get list of other players bets
-	/*$.ajax({
-		url:"/players"
-		type: "GET"
-	})*/
-
-	
+	//get list of other players bets	
 	for(z=1;z<4;z++){
 		makeChip(z,10)//put player id andthere bet value as variable here values taken from ajax get
 	}
@@ -362,48 +356,44 @@ var imageObj2 = new Image();
 	// if hit and player goes bust set winner to false
 	// else ask again until player busts or stands
 	// run compare hand from python =code and update each players wallet accordingly
-	var winner = false;
 	clearInterval(interval_id);
-	/*
-	if(winner){
-		var paidtop = document.getElementById('paid');
-		paidtop.innerHTML = "Paid: "+(betValue() *2);
-		var wallettop = document.getElementById('wallet');
-		wallettop.innerHTML = "Wallet: "+(prev_wallet + betValue()*2);
-		prev_wallet += (betValue()*2);
-	}else if (winner == "draw"){
-		var paidtop = document.getElementById('paid');
-		paidtop.innerHTML = "Paid: "+(betValue());
-		var wallettop = document.getElementById('wallet');
-		wallettop.innerHTML = "Wallet: "+(prev_wallet + betValue());
-		prev_wallet += (betValue());
-
-	}else{
-		var loser = document.createElement('AUDIO');
-		l//oser.src = 'static/graphics/sounds/loser.mp3';
-		//loser.play();
-	}*/
 	playerChoices()
 }
-function getHand(){
-	var choice = $.ajax({
+function getHand(cardValue){
+	if(cardValue[1] == "A"){
+		var cardValue = 11;
+	}
+	else if(cardValue[1] == "K"){
+		var cardValue = 10;
+	}
+	else if(cardValue[1] == "J"){
+	    var cardValue = 10;
+    }
+    else if(cardValue[1] == "Q"){		 
+        var cardValue = 10;
+   }
+    else if(cardValue[1] == "1"){
+	    var cardValue = 10;
+	}else{
+		var cardValue = parseInt(cardValue[1]);
+	}
+
+	console.log(cardValue)
+	$.ajax({
 			url: "/handValue",
-			type: 'GET',
+			data: { "cardValue" : cardValue},
+			type: 'POST',
 			success: function(response){
 				var handValue= JSON.parse(response);
 				alert('players hand is:  '+handValue);
-				var choice = prompt("Would you like to hit or stay ?");
-				 if (choice == "hit" ){ 
-				 	playerChoices();
-				 	getHand();
-				 }else{
-				 	playerChoices();
-				 }
+				if (handValue>21){ 
+				 	endgame();
+				}
 			}
 		});
-
 }
 function playerChoices(){
+
 	// put in function to cycle through players nby getting player list starting at player 1
 	//and end at player4
 	//alert(hit);
@@ -432,13 +422,31 @@ function stand(){
 
 }
 function hit(){
-/*
 	//add code to get value of card from python code and calculate new value
 	// if bust play losing sounds
 	// else move on or hit
-	var winnerWinner = document.createElement('AUDIO');
-	winnerWinner.src = 'graphics/winner.mp3'
-	winnerWinner.play();*/
+	$.ajax({
+			url: "/hit",
+			type: 'GET',
+			success: function(response){
+				var newCard= JSON.parse(response);
+				alert(newCard);
+				dealNewCard(newCard);
+		       getHand(response);
+			}
+		});
+}
+function dealNewCard(source){
+
+	var imageObj4 = new Image();
+ 	imageObj4.onload = function() {
+    	deal4();
+  	};
+	function deal4() {
+      context.drawImage(imageObj4, player4.card2x, player4.card2y-15, 80, 129);
+	};
+
+	imageObj4.src = "static/graphics/deck/"+source+".png";
 }
 
 function endgame(){
@@ -472,8 +480,6 @@ function endgame(){
 				newGame();
 			}
 		});
-
-
 }
 function table(){
 
