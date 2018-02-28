@@ -7,6 +7,13 @@ Blackjack
 {% block styles %}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('.static', filename='starter-template.css')}}">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    socket.on('connect', function() {
+        socket.emit('my event', {data: 'I\'m connected!'});
+    });
+</script>
 {% endblock %}
 
 {% block content %}
@@ -25,12 +32,16 @@ Blackjack
       </div>
     </nav>
 
+
+
     <div class="container">
 
       <div class="starter-template">
         <h1>Blackjack</h1>
         <p class="lead">Blackjack, also known as twenty-one, is a comparing card game between usually several players <br>and a dealer, where each player in turn competes against the dealer, but players <br>do not play against each other. It is played with one or more decks of 52 <br>cards, and is the most widely played casino banking game in the world.</p>
       </div>
+
+
 
     </div><!-- /.container -->
 {% endblock %}

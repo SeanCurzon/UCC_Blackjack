@@ -1,3 +1,4 @@
+#!/bin/env python
 from flask import Flask, render_template, redirect, url_for, session, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
@@ -6,9 +7,11 @@ from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 import pymysql
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '314159'
+app.config['SECRET_KEY'] = 'secret'
+socketio = SocketIO(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/mysql'
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
@@ -61,7 +64,7 @@ class LoginForm(FlaskForm): #define login form for bootstrap
     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
 
 class RegisterForm(FlaskForm): #define registration form for bootstrap
-    email = StringField('email', validators=[InputRequired(), Length(max=50)])
+    email = StringField('email', validators=[InputRequired(), Length(max=50), Email("This field requires a valid email address")])
     username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
 
@@ -119,5 +122,15 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@socketio.on('connect')
+def connect_handler():
+    if current_user.is_authenticated:
+        emit('my response',
+             {'message': '{0} has joined'.format(current_user.name)},
+             broadcast=True)
+    else:
+        return False  # not allowed here
+
 if __name__ == '__main__':
+    socketio.run(app)
     app.run(debug=True)
