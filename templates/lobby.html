@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+   <body>
+     <table class="table table-hover table-dark">
+         <thead>
+            <tr>
+               <th>Game ID</th>
+               <th>Number Of Players</th>
+               <th>Username</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for game in userlist %}
+               
+               <tr>
+                  <td id="gameID"><a href="{{ url_for('showgame') }}">{{ game.gameID }}</a></td>
+                  <td>{{ game.numPlayers }}</td>
+              	  <td ALIGN="center">
+       				  <select>        
+            			<option value="user">{{game.username}}</option>
+        			  </select>
+            	</td>
+                </tr>
+            	{% endfor %}             
+         </tbody>
+      </table>
+      <a href="{{ url_for ('new_games') }}" class="btn btn-primary">New game</a>       
+   </body>
+</html>
