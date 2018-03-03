@@ -7,26 +7,16 @@ from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 import pymysql
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from flask_socketio import SocketIO
+from time import gmtime, strftime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
-socketio = SocketIO(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/mysql'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/mysql'#'mysql://sql2223630:aC2%mZ9%@sql2.freemysqlhosting.net/sql2223630'
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
-connection = pymysql.connect(host='localhost',
-                             user='root',
-                             password='password',
-                             db='mysql',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
-
-cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 class User(UserMixin, db.Model):
     __tablename__ = "users"
@@ -58,6 +48,26 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %r>' % (self.username)
 
+class Chat(db.Model):
+    __tablename__ = "chat"
+    message_id = db.Column('ID',db.Integer , primary_key=True)
+    gameID = db.Column('gameID', db.Integer)
+    username = db.Column('username', db.String(255))
+    message = db.Column('message', db.String(255))
+    timestamp = db.Column('timestamp', db.String(255))
+
+    def __init__(self, message_id, gameID, username ,message, timestamp):
+        self.message_id = message_id
+        self.gameID = gameID
+        self.username = username
+        self.message = message
+        self.timestamp = timestamp
+
+    def __repr__(self):
+        return "<Username: {} - Message: {}>".format(self.username, self.message)
+
+class ChatForm(FlaskForm): #define login form for bootstrap
+    message = StringField('message', validators=[InputRequired()])
 
 class LoginForm(FlaskForm): #define login form for bootstrap
     username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
@@ -104,17 +114,31 @@ def signup():
     if form.validate_on_submit():
         if request.method == 'GET':
             return render_template('register.html')
-        user = User(0, username , password, email, balance)
+        user = User(0, username, password, email, balance)
         db.session.add(user)
         db.session.commit()
-        flash('User successfully registered')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    return render_template('dashboard.html', name=current_user.username)
+
+    form  = ChatForm()
+    comments = Chat.query.order_by(Chat.timestamp.desc())
+
+    name = current_user.username
+    message = form.message.data
+    timestamp = strftime("%H:%M", gmtime())
+
+    if form.validate_on_submit():
+        if request.method == 'GET':
+            return render_template('dashboard.html')
+        comment = Chat(0, 1, name, message, timestamp)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+    return render_template('dashboard.html', form=form, name=current_user.username, comments=comments)
 
 @app.route('/logout') #logs out the current user
 @login_required
@@ -122,15 +146,5 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@socketio.on('connect')
-def connect_handler():
-    if current_user.is_authenticated:
-        emit('my response',
-             {'message': '{0} has joined'.format(current_user.name)},
-             broadcast=True)
-    else:
-        return False  # not allowed here
-
 if __name__ == '__main__':
-    socketio.run(app)
     app.run(debug=True)
