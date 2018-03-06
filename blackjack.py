@@ -73,8 +73,11 @@ def blackjack():
 
 @app.route('/gameinfo')
 def getInfo():
+
+	currentAction = Actions.query.filter_by()
 	return('working')
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 @app.route('/newGame')
 #on new game button press
 # intialise dealer and player
@@ -89,6 +92,8 @@ def newGame():
 
 	global dealerCard
 	dealerCard = str(dealer._handlst[0]) # dealers first card
+	#dealerCard = Actions.query.filter_by(username='dealer').first()
+#	dealerCardOne = dealerCard.action_hand[0]
 	global dealerValue
 	dealerValue = int(dealer._handValue) # dealers total value
 	global dv
@@ -264,19 +269,5 @@ def updatePInfo():
 		db.session.commit()
 
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"""
-
-@app.route("/newHand")
-@app.route("/Hit2")
-@app.route("/newGame2")
-@app.route("/stay")
-@app.route("/dealer")
-@app.route("/leavegame")
-@app.route("/logout")
-@app.route("/register")
-@app.route("/login")
-
-"""
 if __name__ == '__main__':
 	app.run(debug=True)
