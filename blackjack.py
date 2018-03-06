@@ -60,6 +60,7 @@ deck=[] # all remaining cards in deck
 dv=0 #storage for dealers total value
 pv=0 # storage for players total vlaue
 count = 0
+playerName = ''
 
 
 
@@ -96,7 +97,10 @@ def newGame():
 
 	player = Player(dealer)
 	player.startingHand(dealer)
-	db.session.add(player)
+	global playerName
+	playerName = ActiveUsers.query.filter_by(ID=player._id).first()
+	playerdb= Actions(action_name=playerName,action_type="player",action_game=1,action_move="deal",action_hand=str(player._handlst[0])+','+str(player._handlst[1]),action_handValue=int(dealer._handValue),action_stake=0)
+	db.session.add(playerdb)
 	db.session.commit()
 
 	global playerCard1
@@ -157,12 +161,29 @@ def getDealerValue():
 def getNewCard():
 	#get new card byremoving and updating deck
 	global deck
+	Hand = Actions.query.filter_by(playerName),first()
 	nextCard = deck[0]
 	temp = str(deck[0])
+	updatePlayerHand = Actions(action_name=playerName,action_type="player",action_game=1,action_move="hit",action_hand=hand+temp,action_stake=0)
+	db.session.add(updatePlayerHand)
+	db.session.commit()
 	deck.remove(nextCard)
 	nextCard=temp
 	nextCard= json.dumps(nextCard)
 	return(nextCard)
+
+@app.route("/stay",methods=['POST'])
+def stay():
+	playNum = request.form['number']
+	if playNum == 4:
+		playerAct = Actions(action_name=playerName,action_type="player",action_game=1,action_move="stay")
+		db.session.add(playerAct)
+		db.session.commit()
+		return('endgame')
+	else:
+		playerAct = Actions(action_name=playerName,action_type="player",action_game=1,action_move="stay")
+		db.session.add(playerAct)
+		db.session.commit()
 
 
 @app.route('/getWinner')
@@ -174,31 +195,74 @@ def compareHands():
 	pv = pv
 	print(pv)
 	if dv > 21:
+		playerAct =Actions(action_name=playerName,action_type='Player',actions_game=1,action_move='player wins')
+		dealerAct = Actions(action_name='dealer',action_type='dealer',actions_game=1,action_move='dealer loses')
+		db.session.add(playerAct)
+		db.session.add(dealerAct)
+		db.swession.commit()
 		return ("player wins dealer busts")
-	elif(dv==pv):
-		return ("Draw dealer and player have same total")
 	elif(pv>21):
+		dealerAct = Actions(action_name='dealer',action_type='dealer',actions_game=1,action_move='dealer wins')
+		playerAct =Actions(action_name=playerName,action_type='Player',actions_game=1,action_move='playerloses')
+		db.session.add(playerAct)
+		db.session.add(dealerAct)
+		db.swession.commit()		
 		return(" house wins player busts")
+	elif(dv==pv):
+		playerAct =Actions(action_name=playerName,action_type='Player',actions_game=1,action_move='draw')
+		dealerAct = Actions(action_name='dealer',action_type='dealer',actions_game=1,action_move='draw')
+		db.session.add(playerAct)
+		db.session.add(dealerAct)
+		db.swession.commit()
+		return ("Draw dealer and player have same total")
+
 	elif(pv>dv):
+		playerAct =Actions(action_name=playerName,action_type='Player',actions_game=1,action_move='player wins')
+		dealerAct = Actions(action_name='dealer',action_type='dealer',actions_game=1,action_move='dealer loses')
+		db.session.add(playerAct)
+		db.session.add(dealerAct)
+		db.swession.commit()
 		return("player wins")
 	elif dv < pv:
+		playerAct =Actions(action_name=playerName,action_type='Player',actions_game=1,action_move='player wins')
+		dealerAct = Actions(action_name='dealer',action_type='dealer',actions_game=1,action_move='dealer loses')
+		db.session.add(playerAct)
+		db.session.add(dealerAct)
+		db.swession.commit()		
 		return("player wins")
-	elif dv ==21:
-		return ("dealer wins")
 	else :
+		dealerAct = Actions(action_name='dealer',action_type='dealer',actions_game=1,action_move='dealer wins')
+		playerAct =Actions(action_name=playerName,action_type='Player',actions_game=1,action_move='player loses')
+		db.session.add(playerAct)
+		db.session.add(dealerAct)
+		db.swession.commit()
 		return ("dealer wins")
 
 @app.route("/betting",methods = ['POST'])
 #apply players bet
 def bet():
-	playerName = ActiveUsers.query.filter_by(ID=player._id).first()
+	
 	print(playerName)
 	playerBet = request.form['myData']
-	playerdb= Actions(action_name=playerName,action_type="player",action_game=1,action_move="deal",action_hand=str(player._handlst[0])+","+str(player._handlst[1]),action_handValue=int(dealer._handValue),action_stake=playerBet)
+	playerdb= Actions(action_name=playerName,action_type="player",action_game=1,action_move="bet",action_stake=playerBet)
 	db.session.add(playerdb)
 	db.session.commit()
+
+	updateBal= User.query.filter_by(playerName)
+	updateBal.balance -=playerbet
+	db.session.commit()
+	
 	playerNum = request.form['player']
 	return ('Player: '+playerNum + ' bets: '+ request.form['myData'])
+
+@app.route("/updatePlayerInfo", methods=['POST'])
+def updatePInfo():
+	paid = request.form['paid']
+	if paid:
+		playerBal = User.query.filter_by(playerName)
+		playerBal.balance+=request.form['amount']
+		db.session.commit()
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
