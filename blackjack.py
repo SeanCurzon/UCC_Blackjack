@@ -74,7 +74,8 @@ def blackjack():
 @app.route('/gameinfo')
 def getInfo():
 
-	currentAction = Actions.query.filter_by()
+#	currentAction = Actions.query.filter_by(db.func.max(Actions.action_time))
+#	if currentAction.action_type
 	return('working')
 
 
@@ -85,37 +86,40 @@ def getInfo():
 
 #add sql
 def newGame():
+	#create instance of dealer and add info to actions table
+	#convert all element of handlst to string and concatenate them separated by a comma to be insterted into actions table
 	dealer = Dealer()
-	dealerdb= Actions(action_name="dealer",action_type="dealer",action_game=1,action_move="deal",action_hand=str(dealer._handlst[0])+","+str(dealer._handlst[1]),action_handValue=int(dealer._handValue),action_stake=0)
+	dealerH = dealer._handlst
+	dealerHand=""
+	x= len(dealerH)
+	for elem in range(x):
+		if elem == (x-1):
+			dealerHand+=str(dealerH[x])
+		else:
+			dealerHand+=str(dealerH[x])+","
+
+	dealerdb= Actions(action_name="dealer",action_type="dealer",action_game=1,action_move="deal",action_hand=dealerHand,action_handValue=int(dealer._handValue),action_stake=0)
 	db.session.add(dealerdb)
 	db.session.commit()
 
-	global dealerCard
-	dealerCard = str(dealer._handlst[0]) # dealers first card
-	#dealerCard = Actions.query.filter_by(username='dealer').first()
-#	dealerCardOne = dealerCard.action_hand[0]
-	global dealerValue
-	dealerValue = int(dealer._handValue) # dealers total value
+	dealerValue = Actions.query.filter_by(action_move="deal")
+	dealerValue = dealerValue.action_handValue # dealers total value
 	global dv
 	dv = dealerValue
 
-
+	#create instance of player object
 	player = Player(dealer)
 	player.startingHand(dealer)
-	global playerName
-	playerName = ActiveUsers.query.filter_by(ID=player._id).first()
+	#insert session[username] here
 	playerdb= Actions(action_name=playerName,action_type="player",action_game=1,action_move="deal",action_hand=str(player._handlst[0])+','+str(player._handlst[1]),action_handValue=int(dealer._handValue),action_stake=0)
 	db.session.add(playerdb)
 	db.session.commit()
 
-	global playerCard1
-	playerCard1 = str(player._handlst[0]) # players first card
-	global playerCard2
-	playerCard2= str(player._handlst[1]) # palyers second card
-	global playerCardHand
-	playerCardHand = int(player._handValue) # players total value
+	playerHandValue= Actions.query.filter_by(action_type= "player")
+	playerHandValue = playerHandValue.action_handValue # players total value
 	global pv
-	pv= playerCardHand
+	pv= playerhandValue
+
 	global deck
 	deck = dealer._deck # store remaining cards
 	print(str(deck[0]))
@@ -123,22 +127,31 @@ def newGame():
 
 @app.route('/cardValue')
 def cardValue():
+
 	#convert dealers card to a json object and return to javascript
-	global dealerCard
+	dealerCard = Actions.query.filter_by(action_name = 'dealer').first()
+	tempHand = dealerCard.action_hand.split(",")
+	dealerCard = tempHand[0]
 	dealerCard = json.dumps(dealerCard)
 	return(dealerCard)
 
 @app.route('/playerCardValue1')
 def playerCard1():
 	#convert players card to a json object and return to javascript
-	global playerCard1
+	#insert session[username] here i think?
+	playerCard1 = Actions.query.filter_by(action_username = username).first()
+	tempHand = playerCard1.action_hand.split(",")
+	playerCard1 = tempHand[0]
 	playerCard1 = json.dumps(playerCard1)
 	return(playerCard1)
 
 @app.route('/playerCardValue2')
 def playerCard2():	
 	#convertplayers card to a json object and return to javascript
-	global playerCard2
+	#insert session[username] here i think?
+	playerCard2 = Actions.query.filter_by(action_username = username).first()
+	tempHand = playerCard2.action_hand.split(",")
+	playerCard2 = tempHand[0]
 	playerCard2 = json.dumps(playerCard2)
 	return(playerCard2)
 
@@ -146,18 +159,22 @@ def playerCard2():
 def getPlayerHandValue():
 	#update players hand value convert to json object
 	cardValue = request.form['cardValue']
+	#call ace checker function will be put in later by sean to fix ace bug
 	cardValue=int(cardValue)
+	playerHandValue
+	playerHandValue= Actions.query.filter_by(action_type= "player")
+	playerHandValue = playerHandValue.action_handValue + cardValue
 	global pv
-	pv+=cardValue
-	global playerCardHand
-	playerCardHand += cardValue
-	playerCardHand = json.dumps(playerCardHand)
-	return(playerCardHand)
+	pv = playerHandValue
+	playerHandValue = json.dumps(playerHandValue)
+
+	return(playerHandValue)
 
 @app.route('/dealerValue')
 def getDealerValue():
 	# returns dealers total value
-	global dealerValue
+	dealerValue = Actions.query.filter_by(action_move="deal")
+	dealerValue = dealerValue.action_handValue # dealers total value
 	dealerValue = json.dumps(dealerValue)
 	return (dealerValue)
 
@@ -267,7 +284,6 @@ def updatePInfo():
 		playerBal = User.query.filter_by(playerName)
 		playerBal.balance+=request.form['amount']
 		db.session.commit()
-
 
 if __name__ == '__main__':
 	app.run(debug=True)
