@@ -164,7 +164,7 @@ def getNewCard():
 	Hand = Actions.query.filter_by(playerName),first()
 	nextCard = deck[0]
 	temp = str(deck[0])
-	updatePlayerHand = Actions(action_name=playerName,action_type="player",action_game=1,action_move="hit",action_hand=hand+temp,action_stake=0)
+	updatePlayerHand = Actions(action_name=playerName,action_type="player",action_game=1,action_move="hit",action_hand=Hand.action_hand+','+temp,action_value=Hand.action_handValue+nextCard._cardValue,action_stake=0)
 	db.session.add(updatePlayerHand)
 	db.session.commit()
 	deck.remove(nextCard)
