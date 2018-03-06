@@ -125,11 +125,11 @@ def signup():
 def dashboard():
 
     form  = ChatForm()
-    comments = Chat.query.order_by(Chat.timestamp.desc())
+    comments = Chat.query.order_by(Chat.message_id.desc())
 
     name = current_user.username
     message = form.message.data
-    timestamp = strftime("%H:%M", gmtime())
+    timestamp = strftime(" %H:%M - %d %b %Y", gmtime())
 
     if form.validate_on_submit():
         if request.method == 'GET':
