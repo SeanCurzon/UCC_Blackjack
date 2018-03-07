@@ -1,14 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Blackjack</title>
-    <link rel="stylesheet" href="blackjack.css">
-    <script src = "blackjack.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/blackjack.css')}}">
+    <script type ="text/javascript" src = "{{url_for('static',filename = 'js/blackjack.js')}}"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
     <article>
       <header>
-        <h1>DA BOIS CASINO</h1>
+        <h1>Team 4 Blackjack</h1>
       </header>
     </article>
     <div>
@@ -25,7 +26,7 @@
 <!-- create canvas where the game will be played-->
 
       <canvas id = "play" width = "1200" height = "750"></canvas>
-        <div id = wallet>Wallet: 1000</div><div id =betPlaced > Your Bet: 000</div><div id = 'paid'>Paid: 000 </div>
+        <div id = 'wallet'>Wallet: {{balance.balance}}</div><div id ='betPlaced' > Your Bet: 000</div><div id = 'paid'>Paid: 000 </div>
 
       <div id ='option'></div>
      <div id = 'bottomBorder'> 
