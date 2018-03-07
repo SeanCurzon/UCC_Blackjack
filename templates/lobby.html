@@ -4,8 +4,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
 </head>
    <body>
+   	<div class="container">
+   	<button style="float:right;" href="{{ url_for ('showgame') }}" class="btn btn-secondary">Logout</button>
      <table class="table table-hover table-dark">
          <thead>
             <tr>
@@ -16,20 +19,28 @@
          </thead>
          
          <tbody>
-            {% for game in userlist %}
-               
+           {% for game, numPlayers in gamesDict.items() %}
                <tr>
-                  <td id="gameID"><a href="{{ url_for('showgame') }}">{{ game.gameID }}</a></td>
-                  <td>{{ game.numPlayers }}</td>
-              	  <td ALIGN="center">
-       				  <select>        
-            			<option value="user">{{game.username}}</option>
-        			  </select>
-            	</td>
-                </tr>
-            	{% endfor %}             
+                  <td><a id="{{game}}" href="{{ url_for('waiting') }}"> {{ game }}</a></td>
+                  <td> {{ numPlayers }}</td>
+                  <td ALIGN="center">
+                      <select>   
+                          {% for id, name in usersDict.items() %}
+                  
+                   
+                          {%if id ==game %}
+                  {% for i in name %}
+                        <option value="user">{{i| safe}}</option>
+                  {% endfor%}
+                  {%endif  %}
+                    
+                      {% endfor%}   
+                      </select>
+                </td>
+                {% endfor %}     </tr>             
          </tbody>
       </table>
-      <a href="{{ url_for ('new_games') }}" class="btn btn-primary">New game</a>       
+      <a href="{{ url_for ('new_games') }}" class="btn btn-secondary">New game</a>
+    </div>         
    </body>
 </html>
