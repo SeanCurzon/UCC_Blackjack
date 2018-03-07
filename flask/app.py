@@ -5,7 +5,6 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
-import pymysql
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from time import gmtime, strftime
 
@@ -85,6 +84,25 @@ def load_user(user_id):
 @app.route('/') #index page
 def index():
     return render_template('index.html')
+
+@app.route('/blackjack', methods=['GET', 'POST']) #index page
+def blackjack():
+
+    form  = ChatForm()
+    comments = Chat.query.order_by(Chat.message_id.desc())
+
+    name = current_user.username
+    message = form.message.data
+    timestamp = strftime(" %H:%M - %d %b %Y", gmtime())
+
+    if form.validate_on_submit():
+        if request.method == 'GET':
+            return render_template('blackjack.html')
+        comment = Chat(0, 1, name, message, timestamp)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('blackjack'))
+    return render_template('blackjack.html', form=form, name=current_user.username, comments=comments)
 
 @app.route('/login', methods=['GET', 'POST']) #login page
 def login():
