@@ -1,0 +1,10 @@
+Flask==0.12.2
+Flask_Login==0.4.1
+Flask_Table==0.5.0
+Flask_Bootstrap==3.3.7.1
+WTForms==2.1
+Flask_SQLAlchemy==2.3.2
+Flask_WTF==0.14.2
+SQLAlchemy==1.2.4
+ptvsd==4.0.0a1
+jinja2>=2.6

@@ -204,7 +204,7 @@ def newhand():
 	        	elif faces[f] == 'A':
 	        		deck.append([faces[f] + "of" + suits[s], 11])
 	        	else:
-					deck.append([faces[f] + "of" + suits[s], int(faces[f])])
+	        		deck.append([faces[f] + "of" + suits[s], int(faces[f])])
 	random.shuffle(deck)
 	hand_count = 0
 	handScore = 0
@@ -284,7 +284,7 @@ def getNewCard():
 	        	elif faces[f] == 'A':
 	        		deck.append([faces[f] + "of" + suits[s], 11])
 	        	else:
-					deck.append([faces[f] + "of" + suits[s], int(faces[f])])
+	        		deck.append([faces[f] + "of" + suits[s], int(faces[f])])
 	random.shuffle(deck)
 	switch = True
 	playerName = session['username']
@@ -475,7 +475,6 @@ def joinGame():
     if Actions.query.filter_by(types="dealer",move="end_of_hand", gameID=gameID).first(): 
         correctPath = True
         return redirect(url_for("waiting", gameID=gameID, correctPath=correctPath))
-	return redirect(url_for("waiting", gameID=gameID, correctPath=correctPath))
 
 @app.route('/showgame', methods=['GET','POST'])#allows players to join game
 def showgame():
@@ -529,28 +528,25 @@ def compareHands():
 	player = Actions.query.filter_by(username=username,move='bet').first()
 	winnings = (player.stake)*2
 	user = User.query.filter_by(username=username)
-
- 	player = Actions.query.filter_by(username=username,gameID=gameID).first()
- 	dealer1 = Actions.query.filter_by(types='dealer',gameID=gameID).first()
- 	pv = player.handValue 
- 	dv = dealer1.handValue
-	 	
- 	if dv > 21:
+	player = Actions.query.filter_by(username=username,gameID=gameID).first()
+	dealer1 = Actions.query.filter_by(types='dealer',gameID=gameID).first()
+	pv = player.handValue 
+	dv = dealer1.handValue
+	if dv > 21:
 		playerAct =Actions(username=username,types='Player',gameID=gameID,move='win')
 		db.session.add(playerAct)
 		db.session.commit()
 		user.balance += winnings
 		db.session.commit()
- 		return ("You win!")
+		return ("You win!")
 	elif(dv==pv):
 		return ("Draw!")
- 	elif(pv>21):
+	elif(pv>21):
 		
 		playerAct =Actions(username=username,types='Player',gameID=gameID,move='bust',hand="",handValue=0,stake=0)
 		db.session.add(playerAct)
 		db.session.commit()
-		
- 		return("Dealer Wins!")
+		return("Dealer Wins!")
 	elif(dv==pv):
 		playerAct =Actions(username=username,types='Player',gameID=gameID,move='draw',hand="",handValue=0,stake=0)
 		
@@ -564,24 +560,21 @@ def compareHands():
 		
 		db.session.add(playerAct)
 		db.session.commit()
-		
- 		return("You win!")
- 	elif dv < pv:
+		return("You win!")
+	elif dv < pv:
 		playerAct =Actions(username=username,types='Player',gameID=gameID,move='win',hand="",handValue=0,stake=0)
 		db.session.add(playerAct)
 		db.session.commit()	
 		user.balance += winnings
 		db.session.commit()
- 		return("You win!")
+		return("You win!")
 	elif dv ==21:
 		return ("dealer wins!")
 	else :
 		playerAct =Actions(username=username,types='Player',gameID=gameID,move='lost',hand="",handValue=0,stake=0)
 		db.session.add(playerAct)
 		db.swession.commit()
- 		
-
- 	return ("endhand")
+	return ("endhand")
 
 @app.route('/logout') #logs out the current user
 @login_required
