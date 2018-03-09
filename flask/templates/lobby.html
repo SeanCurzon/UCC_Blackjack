@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+   <body>
+    <div class="container">
+    <button style="float:right;" href="{{ url_for ('logout') }}" class="btn btn-secondary">Logout</button>
+     <table class="table table-hover table-dark">
+         <thead>
+            <tr>
+               <th>Game ID</th>
+               <th>Number Of Players</th>
+               <th>Username</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+           {% for game, numPlayers in gamesDict.items() %}
+               <tr>
+                  <td><a id="{{game}}" href="{{ url_for('joinGame', gameID=game) }}"> {{ game}}</a></td>
+                  <td> {{ numPlayers }}</td>
+                  <td ALIGN="center">
+                      <select>   
+                          {% for id, name in usersDict.items() %}
+                  
+                   
+                          {%if id ==game %}
+                  {% for i in name %}
+                        <option value="user">{{i| safe}}</option>
+                  {% endfor%}
+                  {%endif  %}
+                    
+                      {% endfor%}   
+                      </select>
+                </td>
+                {% endfor %}     </tr>             
+         </tbody>
+      </table>
+      <a href="{{ url_for ('createGame') }}" class="btn btn-secondary">New game</a>
+    </div>         
+   </body>
+</html>

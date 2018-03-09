@@ -1,0 +1,105 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<script>
+
+var interval = 1000; 
+var gameID = "{{gameID}}";
+function joinGame() {
+    $.ajax({
+            url: "{{ url_for('joinGame', gameID = gameID)}}",
+            complete: function (response) {
+          if ("{{correctPath}}" != "True"){
+            setTimeout(joinGame, interval);
+          }else if ("{{correctPath}}" == "True"){
+            clearInterval(loop);
+            window.location = "/showgame";
+          }
+          }
+    });
+}
+var loop = setTimeout(joinGame, interval);
+
+</script>
+
+<style>
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+   margin-left:auto;
+  margin-right:auto;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+h2{
+  text-align: center;
+}
+
+.navbar-fixed-top {
+  border: 0;
+}
+
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+body {
+  padding-top: 50px;
+}
+
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Blackjack</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+<h2 id="title">Waiting to join game {{gameID}} at end of current hand!</h2>
+
+<div class="loader"></div>
+
+{% endblock %}

@@ -1,97 +1,50 @@
-{% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-
-{% block title %}
-Blackjack
-{% endblock %}
-
-{% block styles %}
-{{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='blackjack.css')}}">
-<script src = "{{url_for('.static', filename='blackjack.js')}}"></script>
-{% endblock %}
-
-
-{% block content %}
-
-<!-- create navigation menu -->
+<!doctype html>
+<!--fintan-->
+<html>
+  <head>
+    <title>Blackjack</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/blackjack.css')}}">
+    <script type ="text/javascript" src = "{{url_for('static',filename = 'js/blackjack1.js')}}"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Team 4 Blackjack</h1>
+      </header>
+    </article>
     <div>
+<!-- create navigation menu -->
       <ul>
-        <li><a class="active" href="{{ url_for('index') }}">Home</a></li>
-        <li style="float:right"><a class="active" href="{{ url_for('logout') }}">Logout</a></li>
+        <li><a class="active" href="blackjack.html">Home</a></li>
+       
+        <li style="float:right"><a class="active" href="about.html">About</a></li>
       </ul>
     </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">Chatroom</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
-          <div class="modal-body">
-
-            <div class="container">
-              <div class="col-lg-6 col-sm-6 text-center">
-
-                  <form class="form" method="POST" action="/blackjack">
-                    {{ form.hidden_tag() }}
-                    {{ wtf.form_field(form.message) }}
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
-                  </form>
-
-                   {% for comment in comments %}
-                    <hr data-brackets-id="12673">
-                     <ul style="background-color: white;" data-brackets-id="12674" id="sortable" class="list-unstyled ui-sortable">
-                       <strong class="pull-left primary-font">{{comment.username}}</strong>
-                       <small class="pull-right text-muted">
-                         <span class="glyphicon glyphicon-time"></span>{{comment.timestamp}}</small>
-                         <br>
-                         <li class="ui-state-default">{{comment.message}}</li>
-                         <br>
-                         {% endfor %}
-                       </ul>
-                    </div>
-                </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
+  
 <!-- create container for the canvas and other tags to group all of the content together -->
     <div class="canvas-container" id="canvas-container">
 <!-- create canvas where the game will be played-->
 
       <canvas id = "play" width = "1200" height = "750"></canvas>
-        <div id = wallet>Wallet: 1000</div><div id =betPlaced > Your Bet: 000</div><div id = 'paid'>Paid: 000 </div>
+        <div id = 'wallet'>Wallet: <a id="balance">{{balance.balance}}</a></div><div id ='betPlaced' > Your Bet: 000</div><div id = 'paid'>Paid: 000 </div>
 
       <div id ='option'></div>
-     <div id = 'bottomBorder'>
+     <div id = 'bottomBorder'> 
            <!-- create slider with min value of 1 and increments in steps of one reflecting the betting
-           structure of the game with 1 being the min bet and 100 being the max bet -->
+           structure of the game with 1 being the min bet and 100 being the max bet --> 
 
-     <input type="range" min="0" max="100" value="50" class="slider" id="myBet" step = '5'>
-           <span><label id ="b">Bet Value : </span><span id="betValue"></span>
+     <input type="range" min="0" max="100" value="50" class="slider" id="myBet" step = '5'> 
+           <span><label id ="b">Bet Value : </span><span id="betValue"></span> 
          <button id="bet" class="button button1">Bet</button>
           <button id="newGame" class="button button2">New Game</button>
           <button id="hit" class="button button3">Hit</button>
           <button id="stand" class="button button4">Stand</button>
-
+          
       <!-- create slider with min value of 1 and increments in steps of one reflecting the betting
-           structure of the game with 1 being the min bet and 100 being the max bet -->
+           structure of the game with 1 being the min bet and 100 being the max bet --> 
 
-      </div>
+      </div> 
     </div>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-      Chatroom
-    </button>
-
-{% endblock %}
+  </body>
+</html>
